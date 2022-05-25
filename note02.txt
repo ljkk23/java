@@ -1,0 +1,13 @@
+ 1.protected 修饰符：只有继承的子类能够访问夫类的protected方法：
+ （一）：父类为非静态 protected 修饰类
+     1.不同包下，在子类中通过父类引用不可以访问其 protected 方法
+     2.不同包下，在子类中通过该子类引用可以访问其 protected 方法
+     3.不同包下，在子类中不能通过另一个子类引用访问共同基类的 protected 方法
+     总结：就是在不同包下，继承了之后只能在本包中调用子类来应用夫类的protected方法
+ （二）：父类为静态 protected 修饰类
+        1:无论是否同一个包，在子类中均可直接访问
+        2:在不同包下，非子类不可访问
+        参考网址：https://juejin.cn/post/6844903517988061191
+2.session.getAttribute获得的数据是一个对象，所以要转换成int或者String
+3.springboot接收请求参数的几种方式：总体就是三种类型：第一类是Get请求通过拼接url进行传递，第二类是Post请求通过请求体进行传递，第三类是通过请求头部进行参数传递。
+   参考地址：https://www.cnblogs.com/guo-xu/p/14210204.html https://www.cnblogs.com/zhixie/p/13762519.html

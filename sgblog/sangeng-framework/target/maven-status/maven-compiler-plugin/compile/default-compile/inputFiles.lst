@@ -1,0 +1,7 @@
+/home/lj/IdeaProjects/sgblog/sangeng-framework/src/main/java/com/sangeng/enums/AppHttpCodeEnum.java
+/home/lj/IdeaProjects/sgblog/sangeng-framework/src/main/java/com/sangeng/Main.java
+/home/lj/IdeaProjects/sgblog/sangeng-framework/src/main/java/com/sangeng/domain/entity/Article.java
+/home/lj/IdeaProjects/sgblog/sangeng-framework/src/main/java/com/sangeng/mapper/ArticleMapper.java
+/home/lj/IdeaProjects/sgblog/sangeng-framework/src/main/java/com/sangeng/domain/ResponseResult.java
+/home/lj/IdeaProjects/sgblog/sangeng-framework/src/main/java/com/sangeng/service/IArticleService.java
+/home/lj/IdeaProjects/sgblog/sangeng-framework/src/main/java/com/sangeng/service/impl/ArticleServiceImpl.java

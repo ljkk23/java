@@ -1,0 +1,1 @@
+ 1.在保存上传的文件时，注意不是servlet的context地址而是class的地址
