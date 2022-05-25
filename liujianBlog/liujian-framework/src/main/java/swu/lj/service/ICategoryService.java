@@ -1,7 +1,7 @@
 package swu.lj.service;
 
 import swu.lj.domain.ResponseResult;
-import swu.lj.domain.entity.Category;
+import swu.lj.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,9 +10,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author liujian
- * @since 2022-05-24
+ * @since 2022-05-25
  */
 public interface ICategoryService extends IService<Category> {
-
     ResponseResult getCategoryList();
 }
