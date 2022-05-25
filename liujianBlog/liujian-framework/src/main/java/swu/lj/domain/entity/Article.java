@@ -1,5 +1,6 @@
 package swu.lj.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,8 @@ public class Article  {
     private String isComment;
 
     private Long createBy;
+    @TableField(exist = false)
+    private String categoryName;
 
     private Date createTime;
 

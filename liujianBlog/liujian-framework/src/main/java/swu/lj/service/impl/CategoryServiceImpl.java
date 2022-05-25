@@ -1,12 +1,11 @@
 package swu.lj.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import swu.lj.domain.ResponseResult;
+import swu.lj.domain.entity.Category;
 import swu.lj.domain.vo.CategoryVO;
-import swu.lj.entity.Category;
 import swu.lj.mapper.CategoryMapper;
 import swu.lj.service.ICategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,7 +33,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     public ResponseResult getCategoryList() {
         QueryWrapper<Category> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("k.status",ARTICLE_STATUS_NORMAL);
-        Page<Category> CategoryPage=new Page<>(1,5);
+        Page<Category> CategoryPage=new Page<>(1,2);
         List<Category> bookAndUser = categoryMapper.getBookAndUser(CategoryPage, queryWrapper);
         List<CategoryVO> CategoryVOS = BeanCopyUtils.copyBeanList(bookAndUser, CategoryVO.class);
         return ResponseResult.okResult(CategoryVOS);

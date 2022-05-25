@@ -1,4 +1,4 @@
-package swu.lj.entity;
+package swu.lj.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -12,7 +12,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 分类表
+ * 友链
  * </p>
  *
  * @author liujian
@@ -20,31 +20,27 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("liujian_category")
-public class Category implements Serializable {
+@TableName("liujian_link")
+public class Link implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    /**
-     * 分类名
-     */
     private String name;
 
-    /**
-     * 父分类id，如果没有父分类为-1
-     */
-    private Long pid;
+    private String logo;
 
-    /**
-     * 描述
-     */
     private String description;
 
     /**
-     * 状态0:正常,1禁用
+     * 网站地址
+     */
+    private String address;
+
+    /**
+     * 审核状态 (0代表审核通过，1代表审核未通过，2代表未审核)
      */
     private String status;
 

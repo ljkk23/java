@@ -1,5 +1,7 @@
 package swu.lj.mapper;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import swu.lj.domain.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -11,6 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author liujian
  * @since 2022-05-20
  */
+@Component
 public interface ArticleMapper extends BaseMapper<Article> {
 
 }

@@ -3,6 +3,7 @@ package swu.lj.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -29,5 +30,13 @@ public class ArticleController {
         return articleService.getHotArticleList();
     }
 
+    @GetMapping("/articleList")
+    public ResponseResult articleList(Integer pageNum,Integer pageSize,Long categoryID){
+        return articleService.getArticleList(pageNum,pageSize,categoryID);
+    }
+    @GetMapping("/{id}")
+    public ResponseResult getArticleDetails(@PathVariable("id") long id){
+        return articleService.getArticleDetails(id);
+    }
 }
 
