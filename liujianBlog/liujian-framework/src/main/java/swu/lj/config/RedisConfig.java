@@ -1,4 +1,4 @@
-package com.sangeng.config;
+package swu.lj.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
