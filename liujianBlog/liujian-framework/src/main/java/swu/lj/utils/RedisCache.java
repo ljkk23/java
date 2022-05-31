@@ -16,6 +16,10 @@ public class RedisCache
 {
     @Autowired
     public RedisTemplate redisTemplate;
+    //增加map的viewCount
+    public void incrementCacheMapValue(String key,String hKey,long v){
+        redisTemplate.boundHashOps(key).increment(hKey, v);
+    }
 
     /**
      * 缓存基本的对象，Integer、String、实体类等

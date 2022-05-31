@@ -1,9 +1,12 @@
+swu/lj/service/impl/UploadServiceImpl.class
+swu/lj/utils/PathUtils.class
 swu/lj/mapper/ArticleMapper.class
 swu/lj/service/impl/ArticleServiceImpl.class
 swu/lj/utils/JwtUtil.class
 swu/lj/enums/AppHttpCodeEnum.class
 swu/lj/domain/entity/Article.class
 swu/lj/utils/RedisCache.class
+swu/lj/service/UploadService.class
 swu/lj/config/RedisConfig.class
 swu/lj/domain/ResponseResult.class
 swu/lj/service/impl/BlogLoginServiceImpl.class

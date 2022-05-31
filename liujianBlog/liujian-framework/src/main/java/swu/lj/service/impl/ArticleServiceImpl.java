@@ -16,6 +16,7 @@ import swu.lj.service.IArticleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import swu.lj.service.ICategoryService;
 import swu.lj.utils.BeanCopyUtils;
+import swu.lj.utils.RedisCache;
 
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +38,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private ICategoryService categoryService;
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private RedisCache redisCache;
     @Override
     public ResponseResult getHotArticleList() {
         LambdaQueryWrapper<Article> Qwrapper=new LambdaQueryWrapper<>();
@@ -63,6 +66,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
         return ResponseResult.okResult(articleDetailsVO);
 
+    }
+
+    @Override
+    public ResponseResult updateViewCount(Long id) {
+        redisCache.incrementCacheMapValue("article:viewCount",id.toString(),1);
+        return ResponseResult.okResult();
     }
 
     @Override

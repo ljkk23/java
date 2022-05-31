@@ -1,5 +1,6 @@
 package swu.lj.service;
 
+import swu.lj.domain.ResponseResult;
 import swu.lj.domain.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-05-26
  */
 public interface IUserService extends IService<User> {
+    ResponseResult UpdateUserInfo(User user);
 
+    ResponseResult register(User user);
 }

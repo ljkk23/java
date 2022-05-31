@@ -18,4 +18,6 @@ public interface IArticleService extends IService<Article> {
     ResponseResult getArticleList(Integer pageNum,Integer pageSize,Long categoryID);
 
     ResponseResult getArticleDetails(long id);
+
+    ResponseResult updateViewCount(Long id);
 }
