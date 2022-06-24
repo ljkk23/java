@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.UserMapper" >
+
+<!--    Integer SelectLoginUser(@Param("UserName") String UserName);-->
+
+    <select id="SelectLoginUser" resultType="org.example.pojo.User">
+        SELECT
+            *
+        FROM
+            User
+        WHERE
+            userName=#{UserName}
+    </select>
+
+<!--    List<User> getUserList(Integer role);-->
+    <select id="getUserList" resultType="org.example.pojo.User">
+        SELECT
+            *
+        FROM
+            User
+        WHERE
+            role=#{role}
+    </select>
+
+<!--    User passWordVerify(@Param("UserName") String UserName,@Param("passWord") String passWord);-->
+
+    <select id="passWordVerify" resultType="org.example.pojo.User">
+        SELECT
+            *
+        FROM
+            User
+        WHERE
+            userName=#{UserName} and passWord=#{passWord}
+    </select>
+<!--    int register(@Param("UserName") String UserName,@Param("passWord") String passWord)-->
+
+    <insert id="register">
+        INSERT  INTO User (userName, passWord)
+        VALUES (#{UserName} ,#{passWord})
+    </insert>
+
+
+<!--    void deleteUser(String userName);-->
+
+    <delete id="deleteUser">
+        delete from User where userName = #{userName}
+    </delete>
+
+</mapper>

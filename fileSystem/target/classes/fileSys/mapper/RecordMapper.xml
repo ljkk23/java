@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.RecordMapper" >
+
+<!--    <resultMap type="org.example.pojo.OptRecord" id="recordMap">-->
+<!--        <id property="fileName" column="fileName"/>-->
+<!--        <result property="user" column="user"/>-->
+<!--        <result property="date" column="date"/>-->
+<!--        <result property="role" column="role"/>-->
+<!--        <result property="fileContent" column="fileContent"/>-->
+<!--        <result property="opt" column="opt"/>-->
+<!--    </resultMap>-->
+
+    <select id="getRecordList" resultType="org.example.pojo.OptRecord">
+        SELECT
+            file.fileName,file.user,file.date,file.type,file.role,file.fileContent,optRecord.opt
+        FROM
+            optRecord,file
+        where file.fileName=optRecord.optfileName
+    </select>
+
+    <insert id="InsertRecord">
+        INSERT  INTO optRecord
+        VALUES (#{fileName} ,#{opt})
+    </insert>
+
+
+</mapper>

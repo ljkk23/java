@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/table.css" />
+    <script src="../js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="../js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="../js/jquery.waypoints.min.js"></script>
+    <!-- Main -->
+    <script src="../js/main.js"></script>
+    <script type="text/javascript">
+
+        window.onload=loadhtml();
+        function loadhtml(){
+            var role = getUrlParam("role")
+            // var mytableb=$("#mytableb");
+            // mytableb.empty();
+            console.log("role等于"+role);
+            var strb="";
+            if (role=="guanli"){
+                strb+="<caption>\n" +
+                    "                表格title\n" +
+                    "            </caption>"+
+                    "<thead>\n" +
+                    "            <tr>\n" +
+                    "                <th><button type=\"button\" onclick=\"empty()\">查看文档信息</button></th>\n" +
+                    "                <th><button type=\"button\" onclick=\"addFile()\">新增文档</button></th>\n" +
+                    "                <th><button type=\"button\" onclick=\"getRecord()\">查看历史操作记录</button></th>\n" +
+                    "                <th><button type=\"button\" onclick=\"getUser()\">查询用户表</button></th>\n" +
+                    "            </tr>\n" +
+                    "            </thead>\n" +
+                    "            <tbody>\n" +
+                    "            </tbody>"
+            }else if (role=="putong"){
+                console.log("jinlai")
+                var mytableb=$("#mytableb");
+                mytableb.empty();
+                strb+="<th><button type=\"button\" onclick=\"empty()\">查看文档信息</button></th>\n" +
+                   "            <th><button type=\"button\" onclick=\"addFile()\">新增文档</button></th>\n" +
+                   ""
+                mytableb.append(strb)
+                //showbutton1()
+            }
+            //mytableb.append(strb)
+            empty()
+        }
+        // function showbutton1(){
+        //     var mytable2=$("#mytable2");
+        //     mytable2.empty();
+        //     var str="";
+        //     str+="<caption>\n" +
+        //         "管理用户\n" +
+        //         "</caption>\n" +
+        //         "<thead>\n" +
+        //         "<tr>\n" +
+        //         "<th>用户名</th>\n" +
+        //         "<th>role</th>\n" +
+        //         "<th></th>\n" +
+        //         "</tr>\n" +
+        //         "</thead>\n" +
+        //         "<tbody id=\"mytbody1\">\n" +
+        //         "\n"
+        //     for (var i=0; i<3; i++) {
+        //         str+="<tr>"
+        //         str+="<td></td>"
+        //         str+="<td></td>"+"<td style='width: 470px'></td>"
+        //         str+="</tr>"
+        //     }
+        //     str+="</tbody>"
+        //     console.log(str)
+        //     mytable2.append(str);
+        //
+        // }
+
+
+        //重新渲染tbody
+        function empty(){
+            var userName = getUrlParam("userName")
+            $.ajax({
+                url: "/getFile?userName=" + userName,
+                method: "GET",
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result.data)
+                showFiles(result.data);
+            }).fail(function (xhr, status) {
+                console.log(status);
+            });
+        };
+        //删除文件
+        function deleteFile(fileName){
+            $.ajax({
+                url: "/deleteFile?fileName=" + fileName,
+                method: "GET",
+                dataType: "json"
+            }).done(function (result) {
+                window.alert("删除成功")
+                empty();
+            }).fail(function (xhr, status) {
+                console.log(status);
+            });
+        };
+        //删除User
+        function deleteUser(userName){
+            $.ajax({
+                url: "/deleteUser?userName=" + userName,
+                method: "GET",
+                dataType: "json"
+            }).done(function (result) {
+                window.alert("删除成功")
+                //重新渲染UserList
+                getUser();
+            }).fail(function (xhr, status) {
+                console.log(status);
+            });
+        };
+
+
+        //改为新增文件界面
+        function addFile(){
+            var mytable1=$("#mytable1");
+            mytable1.empty();
+            var mytable2=$("#mytable2");
+            mytable2.empty();
+            var str="";
+            str+="<caption>\n" +
+                "表格title\n" +
+                "</caption>\n" +
+                "<thead>\n" +
+                " <tr>\n" +
+                "<th>文件名</th>\n" +
+                "<th>信息简介</th>\n" +
+                "<th>上传人</th>\n" +
+                "<th>最近更新时间</th>\n" +
+                "<th>类型</th>\n" +
+                "<th></th>\n" +
+                "<th></th>\n" +
+                "</tr>\n" +
+                "</thead>\n" +
+                "<tbody id=\"mytbody\">"
+            str+="<td>\n" +
+                "<input type=\"text\" id=\"fileName\" placeholder=\"文件名\">\n" +
+                "</td>\n" +
+                "<td><input type=\"text\" id=\"fileContent\" placeholder=\"信息简介\"></td>\n" +
+                "<td></td>\n" +
+                "<td></td>\n" +
+                "<td><input type=\"text\"  id=\"type\" placeholder=\"类型\"></td>\n" +
+                " <td>\n" +
+                "<button type=\"button\" onclick=\"addFileAjax()\">增加</button>\n" +
+                " </td>\n" +
+                "<td></td>\n" +
+                "<td></td>"
+            mytable1.append(str);
+        }
+        //改为修改文件界面
+        function modifyFile(fileName){
+            $.ajax({
+                url: "/getOneFile?fileName=" + fileName,
+                method: "GET",
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result.data)
+                showOneFile(result.data);
+            }).fail(function (xhr, status) {
+                console.log(status);
+            });
+
+        }
+
+        //填充修改框
+        function showOneFile(data){
+            var mytbody=$("#mytbody");
+            mytbody.empty();
+            var b=data
+            console.log(b.fileName)
+            var str="";
+            str+="<td id='fileName'>"+b.fileName+"</td>" +
+                "<td><input type=\"text\" id=\"fileContent\" placeholder=\"信息简介\" value=\""+b.fileContent+"\"></td>\n" +
+                "<td>"+b.user+"</td>"+
+                "<td>"+b.date+"</td>"+
+                "<td><input type=\"text\"  id=\"type\" placeholder=\"类型\" value=\""+b.type+"\"></td>\n" +
+                " <td>\n" +
+                "<button type=\"button\" onclick=\"modifyFileAjax()\">修改</button>\n" +
+                " </td>\n" +
+                "<td></td>\n" +
+                "<td></td>"
+            mytbody.append(str);
+        }
+
+
+        //修改文件
+        function modifyFileAjax(){
+            var userName = getUrlParam("userName")
+            //获取input中的值
+            var fileName=$("#fileName").text();
+            var fileContent=$("#fileContent").val();
+            var type=$("#type").val();
+            console.log(fileName)
+            $.ajax({
+                url: "/modifyFile?userName=" + userName+"&fileName="+fileName+"&fileContent="+fileContent+"&type="+type,
+                method: "GET",
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result.data)
+                empty();
+            }).fail(function (xhr, status) {
+                console.log(status);
+            });
+        };
+
+
+        //增加文件
+        function addFileAjax(){
+            var userName = getUrlParam("userName")
+            //获取input中的值
+            var fileName=$("#fileName").val();
+            var fileContent=$("#fileContent").val();
+            var type=$("#type").val();
+            console.log(fileName)
+            $.ajax({
+                url: "/addFile?userName=" + userName+"&fileName="+fileName+"&fileContent="+fileContent+"&type="+type,
+                method: "GET",
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result.data)
+                empty();
+            }).fail(function (xhr, status) {
+                console.log(status);
+            });
+        };
+
+        function searchFile(){
+            var userName = getUrlParam("userName")
+            var fileName=$("#fileName").val();
+            $.ajax({
+                url: "/getSearchFile?fileName=" + fileName+"&userName="+userName,
+                method: "GET",
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result.data)
+                showFiles(result.data);
+            }).fail(function (xhr, status) {
+                console.log(status);
+            });
+        }
+
+        //展示文件
+        function showFiles(result) {
+            var mytable1=$("#mytable1");
+            mytable1.empty();
+            var mytable2=$("#mytable2");
+            mytable2.empty();
+            var str="";
+            str+="<caption>\n" +
+                "表格title\n" +
+                "</caption>\n" +
+                "<thead>\n" +
+                " <tr>\n" +
+                "<th>文件名</th>\n" +
+                "<th>信息简介</th>\n" +
+                "<th>上传人</th>\n" +
+                "<th>最近更新时间</th>\n" +
+                "<th>类型</th>\n" +
+                "<th></th>\n" +
+                "<th></th>\n" +
+                "</tr>\n" +
+                "</thead>\n" +
+                "<tbody id=\"mytbody\">"
+            console.log(result.length)
+            for (var i=0; i<result.length; i++) {
+                var b = result[i];
+                str+="<tr>";
+                str+="<td>"+b.fileName+"</td>"
+                str+="<td>"+b.fileContent+"</td>"
+                str+="<td>"+b.user+"</td>"
+                str+="<td>"+b.date+"</td>"
+                str+="<td>"+b.type+"</td>"
+                str+= "<td>\n" +
+                    "<button type=\"button\" onclick=\"modifyFile('"+b.fileName+"')\">修改</button>\n"  +
+                    "</td>\n" +
+                    "<td>\n" +
+                    "<button type=\"button\" onclick=\"deleteFile('"+b.fileName+"')\">删除</button>\n" +
+                    "</td>"
+                str+="</tr>";
+            }
+            mytable1.append(str);
+        }
+        //获取record
+        function getRecord(){
+             $.ajax({
+                 url: "/getRecordList",
+                 method: "GET",
+                 dataType: "json"
+             }).done(function (result) {
+                 console.log(result.data)
+                 showRecord(result.data);
+             }).fail(function (xhr, status) {
+                 console.log(status);
+             });
+
+         }
+        //展示操作记录
+        function showRecord(result) {
+            var mytable1=$("#mytable1");
+            mytable1.empty();
+            var mytable2=$("#mytable2");
+            mytable2.empty();
+            var str="";
+            str+="<caption>\n" +
+                "表格title\n" +
+                "</caption>\n" +
+                "<thead>\n" +
+                " <tr>\n" +
+                "<th>文件名</th>\n" +
+                "<th>信息简介</th>\n" +
+                "<th>上传人</th>\n" +
+                "<th>最近更新时间</th>\n" +
+                "<th>类型</th>\n" +
+                "<th></th>\n" +
+                "<th></th>\n" +
+                "</tr>\n" +
+                "</thead>\n" +
+                "<tbody id=\"mytbody\">"
+            console.log(result.length)
+            for (var i=0; i<result.length; i++) {
+                var b = result[i];
+                str+="<tr>";
+                str+="<td>"+b.fileName+"</td>"
+                str+="<td>"+b.fileContent+"</td>"
+                str+="<td>"+b.user+"</td>"
+                str+="<td>"+b.date+"</td>"
+                str+="<td>"+b.type+"</td>"+"<td>"+b.opt+"</td>"+"<td></td>"
+
+                str+="</tr>";
+            }
+            mytable1.append(str);
+        }
+
+
+        function getUrlParam(name)
+        {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]);
+            return null; //返回参数值
+         }
+
+        function getUser(){
+            $.ajax({
+                url: "/getUserList?role=1",
+                method: "GET",
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result.data)
+                showUser(result.data,1);
+            }).fail(function (xhr, status) {
+                console.log(status);
+            });
+            $.ajax({
+                url: "/getUserList?role=2",
+                method: "GET",
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result.data)
+                showUser(result.data,2);
+            }).fail(function (xhr, status) {
+                console.log(status);
+            });
+        }
+        //展示userlist
+        function showUser(result,role){
+            if (role===1){
+                var mytable1=$("#mytable1");
+                mytable1.empty();
+                var str="";
+                str+="<caption>\n" +
+                    "普通用户\n" +
+                    "</caption>\n" +
+                    "<thead>\n" +
+                    "<tr>\n" +
+                    "<th>用户名</th>\n" +
+                    "<th>role</th>\n" +
+                    "<th></th>\n" +
+                    "</tr>\n" +
+                    "</thead>\n" +
+                    "<tbody id=\"mytbody\">\n" +
+                    "\n"
+                for (var i=0; i<result.length; i++) {
+                    var b = result[i];
+                    str+="<tr>"
+                    str+="<td>"+b.userName+"</td>"
+                    str+="<td>"+role+"</td>"
+                    str+= "<td>\n" +
+                        "<button type=\"button\" onclick=\"deleteUser('"+b.userName+"')\">删除</button>\n" +
+                        "</td>"
+                    str+="</tr>"
+                }
+                str+="</tbody>"
+                mytable1.append(str);
+            }else if (role===2){
+                var mytable2=$("#mytable2");
+                mytable2.empty();
+                var str="";
+                str+="<caption>\n" +
+                    "管理用户\n" +
+                    "</caption>\n" +
+                    "<thead>\n" +
+                    "<tr>\n" +
+                    "<th>用户名</th>\n" +
+                    "<th>role</th>\n" +
+                    "<th></th>\n" +
+                    "</tr>\n" +
+                    "</thead>\n" +
+                    "<tbody id=\"mytbody1\">\n" +
+                    "\n"
+                for (var i=0; i<result.length; i++) {
+                    var b = result[i];
+                    str+="<tr>"
+                    str+="<td>"+b.userName+"</td>"
+                    str+="<td>"+role+"</td>"+"<td style='width: 470px'></td>"
+                    str+="</tr>"
+                }
+                str+="</tbody>"
+                mytable2.append(str);
+            }
+        }
+
+
+    </script>
+
+</head>
+<body>
+
+<div style="text-align: center">
+    <div style="width: 1500px;margin:auto">
+        <table id="mytableb">
+            <th><button type="button" onclick="empty()">查看文档信息</button></th>
+            <th><button type="button" onclick="addFile()">新增文档</button></th>
+            <th><button type="button" onclick="getUser()" id="getmyuser">查询用户表</button></th>
+            <th><button type="button" onclick="getRecord()" id="getrecord">查看历史操作记录</button></th>
+        </table>
+    </div>
+    <div>
+        <h1>搜索<h1>
+        <input type="text" name="fileName" id="fileName" placeholder="搜索">
+            <button onclick="searchFile()">
+                搜索
+            </button>
+    </div>
+    <div style="width: 1500px;margin:auto">
+        <table id="mytable1">
+            <caption>
+                表格title
+            </caption>
+            <thead>
+            <tr>
+                <th>文件名</th>
+                <th>信息简介</th>
+                <th>上传人</th>
+                <th>最近更新时间</th>
+                <th>类型</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="mytbody">
+            </tbody>
+
+        </table>
+    </div>
+    <div style="width: 1500px;margin:auto">
+        <table id="mytable2">
+
+        </table>
+    </div>
+</div>
+
+
+</body>
+
+
+</html>
