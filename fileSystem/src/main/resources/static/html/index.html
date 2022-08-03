@@ -145,7 +145,7 @@
                 "</thead>\n" +
                 "<tbody id=\"mytbody\">"
             str+="<td>\n" +
-                "<input type=\"text\" id=\"fileName\" placeholder=\"文件名\">\n" +
+                "<input type=\"text\" id=\"fileName2\" placeholder=\"文件名\">\n" +
                 "</td>\n" +
                 "<td><input type=\"text\" id=\"fileContent\" placeholder=\"信息简介\"></td>\n" +
                 "<td></td>\n" +
@@ -180,7 +180,7 @@
             var b=data
             console.log(b.fileName)
             var str="";
-            str+="<td id='fileName'>"+b.fileName+"</td>" +
+            str+="<td id='fileName2'>"+b.fileName+"</td>" +
                 "<td><input type=\"text\" id=\"fileContent\" placeholder=\"信息简介\" value=\""+b.fileContent+"\"></td>\n" +
                 "<td>"+b.user+"</td>"+
                 "<td>"+b.date+"</td>"+
@@ -198,7 +198,7 @@
         function modifyFileAjax(){
             var userName = getUrlParam("userName")
             //获取input中的值
-            var fileName=$("#fileName").text();
+            var fileName=$("#fileName2").text();
             var fileContent=$("#fileContent").val();
             var type=$("#type").val();
             console.log(fileName)
@@ -219,7 +219,7 @@
         function addFileAjax(){
             var userName = getUrlParam("userName")
             //获取input中的值
-            var fileName=$("#fileName").val();
+            var fileName=$("#fileName2").val();
             var fileContent=$("#fileContent").val();
             var type=$("#type").val();
             console.log(fileName)
@@ -440,14 +440,14 @@
 <div style="text-align: center">
     <div style="width: 1500px;margin:auto">
         <table id="mytableb">
-            <th><button type="button" onclick="empty()">查看文档信息</button></th>
+            <th><button type="butto n" onclick="empty()">查看文档信息</button></th>
             <th><button type="button" onclick="addFile()">新增文档</button></th>
             <th><button type="button" onclick="getUser()" id="getmyuser">查询用户表</button></th>
             <th><button type="button" onclick="getRecord()" id="getrecord">查看历史操作记录</button></th>
         </table>
     </div>
     <div>
-        <h1>搜索<h1>
+        <h1>搜索</h1>
         <input type="text" name="fileName" id="fileName" placeholder="搜索">
             <button onclick="searchFile()">
                 搜索

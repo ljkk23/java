@@ -12,6 +12,7 @@ public class BeanCopyUtils {
     private BeanCopyUtils() {
     }
 
+    //java 反射以及泛型
     public static <V> V copyBean(Object source,Class<V> clazz) {
         //创建目标对象
         V result = null;

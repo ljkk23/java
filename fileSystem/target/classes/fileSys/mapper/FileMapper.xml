@@ -12,7 +12,7 @@
         FROM
             file
         WHERE
-            Role=#{Role} and isdelete=0
+            Role &lt;= #{Role} and isdelete=0
     </select>
 
 <!--    List<User> getUserList(Integer role);-->
@@ -37,7 +37,7 @@
         FROM
             file
         WHERE
-            fileName like "%"#{fileName}"%" and Role=#{role} and isdelete=0
+            fileName like "%"#{fileName}"%" and Role &lt;= #{role} and isdelete=0
     </select>
 
 <!--    void deleteFile(String fileName);-->

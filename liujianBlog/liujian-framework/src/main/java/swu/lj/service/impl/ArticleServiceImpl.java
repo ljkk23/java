@@ -2,6 +2,7 @@ package swu.lj.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import net.sf.jsqlparser.expression.StringValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import swu.lj.domain.ResponseResult;
@@ -59,6 +60,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleLambdaQueryWrapper.eq(Article::getId,id)
                 .eq(Article::getStatus,ARTICLE_STATUS_NORMAL);
         Article article = articleMapper.selectOne(articleLambdaQueryWrapper);
+        Integer viewCount=redisCache.getCacheMapValue("article:viewCount",String.valueOf(id));
+        article.setViewCount(Long.valueOf(viewCount));
         ArticleDetailsVO articleDetailsVO = BeanCopyUtils.copyBean(article, ArticleDetailsVO.class);
         Category category = categoryService.getById(articleDetailsVO.getCategoryId());
         if(category!=null){

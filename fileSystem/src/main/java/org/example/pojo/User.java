@@ -3,6 +3,10 @@ package org.example.pojo;
 public class User {
 
     String userName;
+    String passWord;
+    //用户的角色决定了管理的信息
+    int role;
+    
 
     public String getUserName() {
         return userName;
@@ -28,7 +32,5 @@ public class User {
         this.role = role;
     }
 
-    String passWord;
-    //用户的角色决定了管理的信息
-    int role;
+
 }

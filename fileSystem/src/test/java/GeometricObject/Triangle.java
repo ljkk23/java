@@ -1,6 +1,6 @@
 package GeometricObject;
 
-public class Triangle extends GeometricObject {
+public class Triangle extends GeometricObject implements Colorable{
 	private double side1;
 	private double side2;
 	private double side3;
@@ -34,7 +34,9 @@ public class Triangle extends GeometricObject {
 	public double getPerimeter() {
 		return side1 + side2 + side3;
 	}
+
+	@Override
+	public void howToColor() {
+		System.out.println("Color all three sides");
+	}
 }
-————————————————
-版权声明：本文为CSDN博主「「已注销」」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/tfboys_3/article/details/105805844

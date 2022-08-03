@@ -1,2 +1,5 @@
-package GeometricObject;public interface Colorable {
+package GeometricObject;
+
+public interface Colorable {
+    public abstract void howToColor();
 }

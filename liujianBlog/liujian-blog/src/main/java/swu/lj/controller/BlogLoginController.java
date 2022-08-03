@@ -14,13 +14,13 @@ public class BlogLoginController {
     @Autowired
     private BlogLoginService blogLoginService;
 
-    @PostMapping("/login")
-    public ResponseResult login(@RequestBody User user){
-        if (!StringUtils.hasText(user.getUserName())){
-            throw new SystemException(AppHttpCodeEnum.REQUIRE_USERNAME);
+        @PostMapping("/login")
+        public ResponseResult login(@RequestBody User user){
+            if (!StringUtils.hasText(user.getUserName())){
+                throw new SystemException(AppHttpCodeEnum.REQUIRE_USERNAME);
+            }
+            return blogLoginService.login(user);
         }
-        return blogLoginService.login(user);
-    }
     @PostMapping("/logout")
     public ResponseResult logout(){
         return blogLoginService.logout();
