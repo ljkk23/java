@@ -24,7 +24,7 @@ public class FastAutoGeneratorTest {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + "/liujian-framework"+"/src/main/java/" + mapperpath + "/mapper/xml")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("liujian_comment")// 设置需要生成的表名
+                    builder.addInclude("liujian_tag")// 设置需要生成的表名
                             .addTablePrefix("liujian_") // 设置过滤表前缀
                             .controllerBuilder().enableRestStyle().enableHyphenStyle()
                             .entityBuilder().enableLombok().addTableFills(

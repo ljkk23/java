@@ -42,10 +42,6 @@ public class JwtUtil {
      * @param ttlMillis token超时时间
      * @return
      */
-    public static String createJWT(String subject, Long ttlMillis) {
-        JwtBuilder builder = getJwtBuilder(subject, ttlMillis, getUUID());// 设置过期时间
-        return builder.compact();
-    }
 
     private static JwtBuilder getJwtBuilder(String subject, Long ttlMillis, String uuid) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -66,23 +62,10 @@ public class JwtUtil {
                 .setExpiration(expDate);
     }
 
-    /**
-     * 创建token
-     * @param id
-     * @param subject
-     * @param ttlMillis
-     * @return
-     */
-    public static String createJWT(String id, String subject, Long ttlMillis) {
-        JwtBuilder builder = getJwtBuilder(subject, ttlMillis, id);// 设置过期时间
-        return builder.compact();
-    }
 
-    public static void main(String[] args) throws Exception {
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjYWM2ZDVhZi1mNjVlLTQ0MDAtYjcxMi0zYWEwOGIyOTIwYjQiLCJzdWIiOiJzZyIsImlzcyI6InNnIiwiaWF0IjoxNjM4MTA2NzEyLCJleHAiOjE2MzgxMTAzMTJ9.JVsSbkP94wuczb4QryQbAke3ysBDIL5ou8fWsbt_ebg";
-        Claims claims = parseJWT(token);
-        System.out.println(claims);
-    }
+
+
+
 
     /**
      * 生成加密后的秘钥 secretKey

@@ -11,7 +11,6 @@ import swu.lj.domain.entity.User;
 import swu.lj.domain.entity.UserDetailsImpl;
 import swu.lj.domain.vo.BlogUserLoginVO;
 import swu.lj.domain.vo.UserVO;
-import swu.lj.enums.AppHttpCodeEnum;
 import swu.lj.service.BlogLoginService;
 import swu.lj.utils.BeanCopyUtils;
 import swu.lj.utils.JwtUtil;

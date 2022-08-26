@@ -40,22 +40,8 @@ public class RedisCache
      * @param timeout 时间
      * @param timeUnit 时间颗粒度
      */
-    public <T> void setCacheObject(final String key, final T value, final Integer timeout, final TimeUnit timeUnit)
-    {
-        redisTemplate.opsForValue().set(key, value, timeout, timeUnit);
-    }
 
-    /**
-     * 设置有效时间
-     *
-     * @param key Redis键
-     * @param timeout 超时时间
-     * @return true=设置成功；false=设置失败
-     */
-    public boolean expire(final String key, final long timeout)
-    {
-        return expire(key, timeout, TimeUnit.SECONDS);
-    }
+
 
     /**
      * 设置有效时间
@@ -92,16 +78,6 @@ public class RedisCache
         return redisTemplate.delete(key);
     }
 
-    /**
-     * 删除集合对象
-     *
-     * @param collection 多个对象
-     * @return
-     */
-    public long deleteObject(final Collection collection)
-    {
-        return redisTemplate.delete(collection);
-    }
 
     /**
      * 缓存List数据

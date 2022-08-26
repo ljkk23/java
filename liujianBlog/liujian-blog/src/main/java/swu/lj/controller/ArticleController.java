@@ -1,6 +1,8 @@
 package swu.lj.controller;
 
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +20,12 @@ import swu.lj.service.IArticleService;
  */
 @RestController
 @RequestMapping("/article")
+@Api(tags = "文章",description = "文章相关接口")
 public class ArticleController {
     @Autowired
     private IArticleService articleService;
 
+    @ApiOperation(value = "热门文章",notes = "获取热门文章")
     @GetMapping("/hotArticleList")
     public ResponseResult hotArticleList(){
         return articleService.getHotArticleList();

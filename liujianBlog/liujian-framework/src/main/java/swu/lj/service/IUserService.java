@@ -1,6 +1,7 @@
 package swu.lj.service;
 
 import swu.lj.domain.ResponseResult;
+import swu.lj.domain.dto.loginUserDTO;
 import swu.lj.domain.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 

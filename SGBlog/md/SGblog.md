@@ -2439,7 +2439,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
      * @param id 根评论的id
      * @return
      */
-    private List<CommentVo> getChildren(Long id) {
+    private List<CommentVo> getChildren(L ong id) {
 
         LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Comment::getRootId,id);
