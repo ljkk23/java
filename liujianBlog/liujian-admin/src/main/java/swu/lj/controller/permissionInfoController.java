@@ -1,15 +1,13 @@
 package swu.lj.controller;
 
 import io.jsonwebtoken.Claims;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import swu.lj.domain.ResponseResult;
 import swu.lj.domain.vo.UserPermissionInfoVO;
 import swu.lj.domain.vo.UserVO;
-import swu.lj.service.PermissionService;
+import swu.lj.service.IMenuService;
 import swu.lj.utils.JwtUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +16,7 @@ import java.util.List;
 @RestController
 public class permissionInfoController {
     @Autowired
-    private PermissionService permissionService;
+    private IMenuService menuService;
     @GetMapping("/getInfo")
     public ResponseResult getPermissionInfo(HttpServletRequest request){
         String jwt=request.getHeader("token");
@@ -31,9 +29,9 @@ public class permissionInfoController {
         }
         String subject = claims.getSubject();
         Integer userID=Integer.valueOf(subject);
-        List<String> permissions = permissionService.getPermissions(userID);
-        List<String> roles = permissionService.getRoles(userID);
-        UserVO userVo = permissionService.getUserVo(userID);
+        List<String> permissions = menuService.getPermissions(userID);
+        List<String> roles = menuService.getRoles(userID);
+        UserVO userVo = menuService.getUserVo(userID);
 
         return ResponseResult.okResult(new UserPermissionInfoVO(permissions,roles,userVo));
     }
