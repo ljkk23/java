@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import swu.lj.Constants.SystemConstants;
 import swu.lj.domain.entity.User;
 import swu.lj.domain.vo.UserVO;
-import swu.lj.entity.Menu;
+import swu.lj.domain.entity.Menu;
 import swu.lj.mapper.MenuMapper;
 import swu.lj.mapper.RoleMapper;
 import swu.lj.mapper.UserMapper;

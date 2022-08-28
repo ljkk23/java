@@ -1,8 +1,9 @@
 package swu.lj.mapper;
 
 import org.springframework.stereotype.Component;
-import swu.lj.entity.Menu;
+import swu.lj.domain.entity.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import swu.lj.domain.vo.MenuVo;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ import java.util.List;
 @Component
 public interface MenuMapper extends BaseMapper<Menu> {
     List<String> selectPermsByUserId(Integer userId);
+
+    List<Menu> selectRoutersByUserId(Integer userId);
+
+    List<Menu> selectAllRouters();
 }

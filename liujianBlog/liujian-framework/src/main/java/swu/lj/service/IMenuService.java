@@ -1,7 +1,7 @@
 package swu.lj.service;
 
 import swu.lj.domain.vo.UserVO;
-import swu.lj.entity.Menu;
+import swu.lj.domain.entity.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

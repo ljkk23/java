@@ -1,4 +1,4 @@
-package swu.lj.entity;
+package swu.lj.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -7,8 +7,12 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -21,6 +25,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("sys_menu")
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,7 +34,7 @@ public class Menu implements Serializable {
     /**
      * 菜单ID
      */
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**

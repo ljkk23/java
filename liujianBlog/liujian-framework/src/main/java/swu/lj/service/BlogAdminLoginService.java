@@ -6,5 +6,5 @@ import swu.lj.domain.entity.User;
 public interface BlogAdminLoginService {
     ResponseResult login(User user);
 
-    ResponseResult logout();
+    ResponseResult logout(Integer userId);
 }

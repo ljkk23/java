@@ -5,11 +5,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import swu.lj.Constants.SystemConstants;
 import swu.lj.domain.ResponseResult;
 import swu.lj.domain.entity.User;
 import swu.lj.domain.entity.UserDetailsImpl;
 import swu.lj.domain.vo.BlogUserLoginVO;
 import swu.lj.domain.vo.UserVO;
+import swu.lj.enums.AppHttpCodeEnum;
 import swu.lj.service.BlogAdminLoginService;
 import swu.lj.utils.BeanCopyUtils;
 import swu.lj.utils.JwtUtil;
@@ -41,7 +43,8 @@ public class BlogAdminLoginServiceImpl implements BlogAdminLoginService {
     }
 
     @Override
-    public ResponseResult logout() {
-        return null;
+    public ResponseResult logout(Integer userId) {
+        redisCache.deleteObject("blogAdmin:"+userId);
+        return ResponseResult.okResult("成功注销");
     }
 }
