@@ -6,8 +6,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -21,11 +24,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("liujian_tag")
+@NoArgsConstructor
 public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -35,11 +39,11 @@ public class Tag implements Serializable {
 
     private Long createBy;
 
-      @TableField(fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     private Long updateBy;
-
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     /**
@@ -53,4 +57,9 @@ public class Tag implements Serializable {
     private String remark;
 
 
+    public Tag(Long id, String name, String remark) {
+        this.id=id;
+        this.name=name;
+        this.remark=remark;
+    }
 }

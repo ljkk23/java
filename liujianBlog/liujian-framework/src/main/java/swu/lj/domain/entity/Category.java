@@ -50,11 +50,11 @@ public class Category implements Serializable {
 
     private Long createBy;
 
-      @TableField(fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     private Long updateBy;
-
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     /**

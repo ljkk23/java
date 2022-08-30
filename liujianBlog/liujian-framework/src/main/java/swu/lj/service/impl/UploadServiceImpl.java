@@ -80,7 +80,7 @@ public class UploadServiceImpl implements UploadService {
     public ResponseResult uploadImg(MultipartFile img) {
         //判断文件类型是否为png
         String originalFilename = img.getOriginalFilename();
-        if (!originalFilename.endsWith(".png")){
+        if (!(originalFilename.endsWith(".png") || originalFilename.endsWith(".jpg"))){
             throw new SystemException(AppHttpCodeEnum.FILE_TYPE_ERROR);
         }
         //TODO 判断文件大小

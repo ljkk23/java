@@ -78,6 +78,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    public ResponseResult addArticle(Article article) {
+        if (articleMapper.insert(article)!=0){
+            return ResponseResult.okResult();
+        }else
+            return ResponseResult.errorResult(500,"数据库插入出错");
+    }
+
+    @Override
     public ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryID) {
 
         LambdaQueryWrapper<Article> articleListVoLambdaQueryWrapper=new LambdaQueryWrapper<>();

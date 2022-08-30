@@ -64,7 +64,7 @@ public class Comment implements Serializable {
     private LocalDateTime createTime;
 
     private Long updateBy;
-
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     /**

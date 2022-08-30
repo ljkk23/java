@@ -1,5 +1,6 @@
 package swu.lj.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @SuppressWarnings("serial")
@@ -22,7 +24,7 @@ public class Article  {
     //文章内容
     private String content;
     //文章类型:1 文章 2草稿
-    //private String type;
+    private String type;
     //文章摘要
     private String summary;
     //所属分类id
@@ -34,7 +36,7 @@ public class Article  {
     //状态（0已发布，1草稿）
     private String status;
     //评论数
-    //private Integer commentCount;
+    private Integer commentCount;
     //访问量
     private Long viewCount;
     //是否允许评论 1是，0否
@@ -44,11 +46,13 @@ public class Article  {
     @TableField(exist = false)
     private String categoryName;
 
-    private Date createTime;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
     private Long updateBy;
+    @TableField(fill = FieldFill.UPDATE)
+    private LocalDateTime updateTime;
 
-    private Date updateTime;
     //删除标志（0代表未删除，1代表已删除）
     private Integer delFlag;
 
