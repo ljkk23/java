@@ -24,7 +24,7 @@ public class Article  {
     //文章内容
     private String content;
     //文章类型:1 文章 2草稿
-    private String type;
+    //private String type;
     //文章摘要
     private String summary;
     //所属分类id
@@ -36,7 +36,7 @@ public class Article  {
     //状态（0已发布，1草稿）
     private String status;
     //评论数
-    private Integer commentCount;
+    //private Integer commentCount;
     //访问量
     private Long viewCount;
     //是否允许评论 1是，0否

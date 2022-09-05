@@ -3,6 +3,28 @@
   <component name="LeetcodeEditor">
     <option name="projectConfig">
       <map>
+        <entry key="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[15]三数之和.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/doc/content/[15]三数之和.md" />
+              <option name="frontendQuestionId" value="leetcode.cn15" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[15]三数之和.java" />
+              <option name="titleSlug" value="3sum" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[16]最接近的三数之和.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/doc/content/[16]最接近的三数之和.md" />
+              <option name="frontendQuestionId" value="leetcode.cn16" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[16]最接近的三数之和.java" />
+              <option name="titleSlug" value="3sum-closest" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[1]两数之和.java">
           <value>
             <LeetcodeEditor>
@@ -66,6 +88,28 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[5]最长回文子串.java" />
               <option name="titleSlug" value="longest-palindromic-substring" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[6]Z 字形变换.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/doc/content/[6]Z 字形变换.md" />
+              <option name="frontendQuestionId" value="leetcode.cn6" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[6]Z 字形变换.java" />
+              <option name="titleSlug" value="zigzag-conversion" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[面试题 17.08]马戏团人塔.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/doc/content/[面试题 17.08]马戏团人塔.md" />
+              <option name="frontendQuestionId" value="leetcode.cn面试题 17.08" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/../leetcode/leetcode/editor/cn/[面试题 17.08]马戏团人塔.java" />
+              <option name="titleSlug" value="circus-tower-lcci" />
             </LeetcodeEditor>
           </value>
         </entry>
