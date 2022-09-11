@@ -2,6 +2,8 @@ package swu.lj.handler.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import swu.lj.Exception.SystemException;
 import swu.lj.domain.ResponseResult;
@@ -19,12 +21,11 @@ public class GlobalExceptionHandler {
         return ResponseResult.errorResult(e.getCode(),e.getMsg());
     }
 
-
-    @ExceptionHandler(Exception.class)
-    public ResponseResult exceptionHandler(Exception e){
-        //打印异常信息
-        log.error("出现了异常！ {}",e);
-        //从异常对象中获取提示信息封装返回
-        return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(),e.getMessage());
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseResult exceptionHandler(Exception e){
+//        //打印异常信息
+//        log.error("出现了异常！ {}dddd",e);
+//        //从异常对象中获取提示信息封装返回
+//        return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(),e.getMessage());
+//    }
 }

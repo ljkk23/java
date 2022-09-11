@@ -28,7 +28,9 @@ public class ArticleController {
     @ApiOperation(value = "热门文章",notes = "获取热门文章")
     @GetMapping("/hotArticleList")
     public ResponseResult hotArticleList(){
+
         return articleService.getHotArticleList();
+
     }
 
     @GetMapping("/articleList")
@@ -41,6 +43,7 @@ public class ArticleController {
     }
     @PutMapping("/updateViewCount/{id}")
     public ResponseResult updateViewCount(@PathVariable("id") Long id){
+
         return articleService.updateViewCount(id);
     }
 }

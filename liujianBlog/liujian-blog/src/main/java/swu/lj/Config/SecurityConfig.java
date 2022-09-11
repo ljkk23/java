@@ -1,5 +1,6 @@
 package swu.lj.Config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,15 +17,16 @@ import swu.lj.handler.security.AccessDeniedHandlerImpl;
 import swu.lj.handler.security.AuthenticationEntryPointImpl;
 
 import javax.servlet.Filter;
+import java.io.PrintWriter;
 
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class    SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
     @Autowired
-    AuthenticationEntryPointImpl authenticationEntryPoint;
+    private AuthenticationEntryPointImpl authenticationEntryPoint;
     @Autowired
-    AccessDeniedHandlerImpl accessDeniedHandler;
+    private AccessDeniedHandlerImpl accessDeniedHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -41,10 +43,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
                 .antMatchers("logout").authenticated()
-                .antMatchers("/link/getAllLink").authenticated()
-                .antMatchers("/login").anonymous()
-                // 除上面外的所有请求全部不需要认证即可访问
-                .anyRequest().permitAll();
+                .antMatchers("/article/hotArticleList").authenticated()
+                .antMatchers("/login").anonymous();
+//                .and()
+//                .formLogin()
+//                .loginProcessingUrl("/testlogin")
+//                .successHandler((req, resp, authentication) -> {
+//                    Object principal = authentication.getPrincipal();
+//                    resp.setContentType("application/json;charset=utf-8");
+//                    PrintWriter out = resp.getWriter();
+//                    out.write(new ObjectMapper().writeValueAsString(principal));
+//                    out.flush();
+//                    out.close();
+//                })
+//                .failureHandler((req, resp, e) -> {
+//                    resp.setContentType("application/json;charset=utf-8");
+//                    PrintWriter out = resp.getWriter();
+//                    out.write(e.getMessage());
+//                    out.flush();
+//                    out.close();
+//                })
+               //  除上面外的所有请求全部不需要认证即可访问
+//                .permitAll();
 
         //关闭默认的注销接口
         http.logout().disable();

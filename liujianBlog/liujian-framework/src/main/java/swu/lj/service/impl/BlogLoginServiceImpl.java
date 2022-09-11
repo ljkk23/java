@@ -39,7 +39,7 @@ public class BlogLoginServiceImpl implements BlogLoginService {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         if (Objects.isNull(authenticate)){
-            throw new RuntimeException("用户名或密码错误");
+            throw new RuntimeException("用户名或密码错误2222");
         }
         UserDetailsImpl userDetailsimpl = (UserDetailsImpl) authenticate.getPrincipal();
         String userID=userDetailsimpl.getUser().getId().toString();

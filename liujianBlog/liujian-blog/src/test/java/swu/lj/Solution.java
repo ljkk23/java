@@ -1,44 +1,61 @@
 package swu.lj;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 class Solution {
     public static void main(String[] args) {
-        System.out.println(convert("Apalindromeisaword,phrase,number,orothersequenceofunitsthatcanbereadthesamewayineitherdirection,withgeneralallowancesforadjustmentstopunctuationandworddividers", 2));
+        int[] res=nextPermutation(new int[]{1,3,2});
+        for (int a: res) {
+            System.out.println(a);
+        }
     }
-    public static String convert(String s, int numRows) {
-        char[] chars = s.toCharArray();
-        char[][] zchar=new char[1000][numRows];
-        int x=0;
-        int y=0;
-        //numRows转换方向的标识
-        int j=0;
-        //true表示向下走
-        Boolean charto=true;
-        zchar[0][0]=chars[0];
-        StringBuffer result=new StringBuffer();
-        for (int i = 1; i < chars.length; i++) {
-            if (j==numRows-1){
-                charto=!charto;
-                j=0;
-            }
-            if (charto){
-                y++;
-                zchar[x][y]=chars[i];
-                j++;
+    public static int[] nextPermutation(int[] nums) {
+        int lenth= nums.length;
+        int q=lenth-1;
+        int p=0;
+        Boolean flag=true;
+        for (int i = q; i >0; i--) {
+            if (nums[i]<=nums[i-1]){
+                continue;
             }else {
-                y--;
-                x++;
-                zchar[x][y]=chars[i];
-                j++;
+                p=i-1;
+                flag=false;
+                break;
             }
         }
-        for (int i = 0; i < numRows; i++) {
-            for (int k = 0; k < 1000; k++) {
-                if (zchar[k][i]!='\u0000'){
-                    result.append(zchar[k][i]);
+        if (!flag){
+            for (int i = lenth-1; i >p ; i--) {
+                if (nums[i]<=nums[p]){
+                    continue;
+                }else {
+                    int temp=nums[p];
+                    nums[p]=nums[i];
+                    nums[i]=temp;
+                    break;
                 }
             }
-            System.out.println();
+            for (int i = p+1; i < lenth; i++) {
+                for (int j = i; j < lenth; j++) {
+                    if (nums[i]>nums[j]){
+                        int tem=nums[i];
+                        nums[i]=nums[j];
+                        nums[j]=tem;
+                    }
+                }
+            }
+        }else {
+            for (int i = p; i < lenth; i++) {
+                for (int j = i; j < lenth; j++) {
+                    if (nums[i]>nums[j]){
+                        int tem=nums[i];
+                        nums[i]=nums[j];
+                        nums[j]=tem;
+                    }
+                }
+            }
         }
-        return result.toString();
+        return nums;
     }
 }
