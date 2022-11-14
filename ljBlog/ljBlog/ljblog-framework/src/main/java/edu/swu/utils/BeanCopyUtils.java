@@ -1,8 +1,6 @@
-package swu.lj.utils;
+package edu.swu.utils;
 
 import org.springframework.beans.BeanUtils;
-import swu.lj.domain.entity.Article;
-import swu.lj.domain.vo.HotArticleVo;
 
 import java.util.List;
 import java.util.stream.Collectors;

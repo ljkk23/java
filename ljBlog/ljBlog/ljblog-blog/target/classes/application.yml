@@ -1,6 +1,13 @@
 server:
-  port: 7777
+  port: 8080
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: 68d090bd1518edb710b5
+            clientSecret: c06439698b8881123f512b4f3328ebdfbf527015
   datasource:
     url: jdbc:mysql://150.158.141.30:3306/liujian_blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
@@ -16,7 +23,9 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
-      logic-delete-field: delFlag
+      logic-delete-field: is_delete
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+
+

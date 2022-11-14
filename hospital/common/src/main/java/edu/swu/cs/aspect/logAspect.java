@@ -1,9 +1,10 @@
-package swu.lj.aspect;
+package edu.swu.cs.aspect;
 
 import com.alibaba.fastjson.JSON;
+import edu.swu.cs.annotation.systemLog;
 import lombok.extern.slf4j.Slf4j;
+
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -11,7 +12,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import swu.lj.annotation.systemLog;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @Aspect
 @Slf4j
 public class logAspect {
-    @Pointcut("@annotation(swu.lj.annotation.systemLog)")
+    @Pointcut("@annotation(edu.swu.cs.annotation.systemLog)")
     public void pt(){
 
     }

@@ -1,4 +1,4 @@
-package swu.lj.utils;
+package edu.swu.cs.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

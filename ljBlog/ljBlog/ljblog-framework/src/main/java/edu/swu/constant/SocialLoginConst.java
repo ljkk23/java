@@ -1,4 +1,4 @@
-package com.minzheng.blog.constant;
+package edu.swu.constant;
 
 /**
  * 第三方登录参数常量

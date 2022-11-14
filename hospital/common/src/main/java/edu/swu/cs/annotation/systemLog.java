@@ -1,4 +1,4 @@
-package swu.lj.annotation;
+package edu.swu.cs.annotation;
 
 
 import java.lang.annotation.ElementType;

@@ -21,6 +21,7 @@ public enum StatusCodeEnum {
      */
     NO_LOGIN(40001, "用户未登录"),
     LOGIN_ERROR(40002,"用户密码错误"),
+    REQUIRE_USERNAME(40003,"需要用户名"),
     /**
      * 没有操作权限
      */

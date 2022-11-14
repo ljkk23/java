@@ -1,4 +1,4 @@
-package swu.lj.config;
+package edu.swu.cs.config;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -6,7 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @Author 三更  B站： https://space.bilibili.com/663528522
+ * @Author lj
+ *
  */
 @Configuration
 public class MybatisPlusConfig {

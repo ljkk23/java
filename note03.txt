@@ -1,5 +1,0 @@
- 1用mybatis逆向工程生成的方法可能不够时，需要自己增加方法时，所以就应该使逆向工程生成的方法作为夫类，自己写的特征方法作为子类
-2.#和$的区别
-selec * from #{table};  --》select * from "test";
- select * from ${table}; --》 select * from test;所以对于传入分组(order)字段或者排序字段(order)，应使用${},避免出现order  by "id" 等情况。
- 能使用#{}的地方应尽量使用#{}，防止sql注入

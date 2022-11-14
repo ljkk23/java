@@ -1,7 +1,9 @@
 package edu.swu.cs.domain;
 
+
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import swu.lj.enums.AppHttpCodeEnum;
+import edu.swu.cs.enums.AppHttpCodeEnum;
 
 import java.io.Serializable;
 

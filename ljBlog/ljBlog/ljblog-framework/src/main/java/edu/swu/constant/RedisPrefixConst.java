@@ -1,4 +1,4 @@
-package com.minzheng.blog.constant;
+package edu.swu.constant;
 
 /**
  * redis常量

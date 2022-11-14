@@ -1,4 +1,4 @@
-package swu.lj.domain.vo;
+package edu.swu.domain.VO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BlogUserLoginVO {
     String token;
-    UserVO userVO;
+    UserInfoVO userInfoVO;
 }

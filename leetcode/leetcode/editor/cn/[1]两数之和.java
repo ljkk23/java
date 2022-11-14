@@ -45,27 +45,22 @@
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        List<Integer> result=new ArrayList<>();
-        for (int i=0;i< nums.length;i++){
-            if (!result.contains(i)) {
-                for (int j=0;j< nums.length;j++) {
-                    if ((nums[i]+ nums[j] == target) && i != j) {
-                        result.add(i);
-                        result.add(j);
-                    }
-                }
+        int lenth=nums.length;
+        Map<Integer,Integer> myhash=new HashMap<Integer,Integer>();
+        for(int i=0;i<lenth;i++){
+            if (myhash.containsKey(target-nums[i])){
+                return new int[]{myhash.get(target-nums[i]),i};
             }
+            myhash.put(nums[i],i);
         }
-        int[] d = new int[result.size()];
-        for(int i = 0;i<result.size();i++){
-            d[i] = result.get(i);
-        }
-        return d;
+        return new int[0];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

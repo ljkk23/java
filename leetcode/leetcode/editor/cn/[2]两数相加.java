@@ -84,13 +84,32 @@ class Solution {
             p1=p1.next;
             p2=p2.next;
         }
-        if (p1!=null){
-            p=p1;
-            p1=p1.next;
-        } else if (p2!=null) {
-            p=p2;
-            p2=p2.next;
+        while (p1!=null || p2!=null){
+            if (p1!=null){
+                sum=p1.val+addNum;
+                if (sum>=10)
+                {
+                    addNum=1;
+                }else {
+                    addNum=0;
+                }
+                p.next=new ListNode(sum%10);
+                p=p.next;
+                p1=p1.next;
+            } else if (p2!=null) {
+                sum=p2.val+addNum;
+                if (sum>=10)
+                {
+                    addNum=1;
+                }else {
+                    addNum=0;
+                }
+                p.next=new ListNode(sum%10);
+                p=p.next;
+                p2=p2.next;
+            }
         }
+
         if (addNum!=0){
             p.next=new ListNode(1);
         }

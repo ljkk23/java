@@ -64,10 +64,45 @@
 // Related Topics 数组 哈希表 矩阵 👍 949 👎 0
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public boolean isValidSudoku(char[][] board) {
-
+        int m= board.length;
+        int n=board[0].length;
+        for (int i = 0; i < m; i++) {
+            Map<String,String> myhash=new HashMap<String,String>();
+            for (int j = 0; j < n; j++) {
+                if (board[i][j]!='.'){
+                    if (!myhash.containsKey(board[i][j])){
+                        myhash.put(String.valueOf(board[i][j]),1);
+                    }else {
+                        return false;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            int k_i=3;
+            int k=3;
+            for (int j = 0; j < 3; j++) {
+                Map<String,String> myhash=new HashMap<String,String>();
+                for (int l_i =k_i*i; l_i < k_i*(i+1); l_i++) {
+                    for (int l = k * j; l < k * (j + 1); l++) {
+                        if (board[l_i][l] != '.') {
+                            if (!myhash.containsKey(board[l_i][l])) {
+                                myhash.put(String.valueOf(board[l_i][l]), 1);
+                            } else {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

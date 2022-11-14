@@ -1,6 +1,4 @@
-package com.minzheng.blog.constant;
-
-import io.swagger.models.auth.In;
+package edu.swu.constant;
 
 /**
  * Hexo文章常量

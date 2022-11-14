@@ -1,7 +1,7 @@
 package edu.swu.Exception;
 
 
-import edu.swu.enums.AppHttpCodeEnum;
+import edu.swu.enums.StatusCodeEnum;
 
 public class SystemException extends RuntimeException{
 
@@ -17,10 +17,10 @@ public class SystemException extends RuntimeException{
         return msg;
     }
 
-    public SystemException(AppHttpCodeEnum httpCodeEnum) {
-        super(httpCodeEnum.getMsg());
-        this.code = httpCodeEnum.getCode();
-        this.msg = httpCodeEnum.getMsg();
+    public SystemException(StatusCodeEnum statusCodeEnum) {
+        super(statusCodeEnum.getDesc());
+        this.code = statusCodeEnum.getCode();
+        this.msg = statusCodeEnum.getDesc();
     }
     
 }

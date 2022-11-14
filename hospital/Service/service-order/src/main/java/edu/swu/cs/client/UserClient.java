@@ -1,9 +1,24 @@
 package edu.swu.cs.client;
 
-@FeignClient(name = "service-order",fallback = OrderClientImpl.class)
-public interface OrderClient {
+import edu.swu.cs.client.impl.UserClientImpl;
+import edu.swu.cs.domain.FeignVO.DoctorFeignVO;
+import edu.swu.cs.domain.FeignVO.PatientVo;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
-    //根据课程id和用户id查询订单表中订单状态
-    @GetMapping("/eduorder/order/isBuyCourse/{courseId}/{memberId}")
-    public boolean isBuyCourse(@PathVariable("courseId") String courseId, @PathVariable("memberId") String memberId);
+@Component
+@FeignClient(name = "service-user",fallback = UserClientImpl.class)
+public interface UserClient {
+
+    //远程调用医生的信息
+    @GetMapping("/doctor/FeignGetDoctorInfo")
+    public DoctorFeignVO FeignGetDoctorInfo(@RequestParam(value = "id") Long id);
+
+    @GetMapping("/patient/FeignGetPatientInfo")
+    public PatientVo FeignGetPatientInfo(@RequestParam(value = "id") Long id);
+
 }

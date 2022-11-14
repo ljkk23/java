@@ -1,4 +1,4 @@
-package swu.lj.config;
+package edu.swu.cs.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

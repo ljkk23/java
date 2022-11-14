@@ -1,6 +1,4 @@
-package swu.lj.utils;
-
-import org.springframework.web.context.request.RequestContextHolder;
+package edu.swu.cs.utils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;

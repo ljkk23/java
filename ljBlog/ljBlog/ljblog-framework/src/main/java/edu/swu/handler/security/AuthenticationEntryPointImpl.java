@@ -1,14 +1,15 @@
 package edu.swu.handler.security;
 
 import com.alibaba.fastjson.JSON;
+import edu.swu.domain.Result;
+import edu.swu.enums.StatusCodeEnum;
+import edu.swu.utils.WebUtils;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import swu.lj.domain.ResponseResult;
-import swu.lj.enums.AppHttpCodeEnum;
-import swu.lj.utils.WebUtils;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,13 +25,13 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
         authException.printStackTrace();
         //InsufficientAuthenticationException
         //BadCredentialsException
-        ResponseResult result = null;
+        Result result = null;
         if(authException instanceof BadCredentialsException){
-            result = ResponseResult.errorResult(AppHttpCodeEnum.LOGIN_ERROR.getCode(),authException.getMessage());
+            result = Result.fail(StatusCodeEnum.LOGIN_ERROR.getCode(),authException.getMessage());
         }else if(authException instanceof InsufficientAuthenticationException){
-            result = ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
+            result = Result.fail(StatusCodeEnum.NO_LOGIN);
         }else{
-            result = ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR.getCode(),"认证或授权失败");
+            result = Result.fail(StatusCodeEnum.AUTHORIZED,"认证或授权失败");
         }
         //响应给前端
         WebUtils.renderString(response, JSON.toJSONString(result));

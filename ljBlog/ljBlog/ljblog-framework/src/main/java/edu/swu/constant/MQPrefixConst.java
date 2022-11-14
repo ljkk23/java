@@ -1,4 +1,4 @@
-package com.minzheng.blog.constant;
+package edu.swu.constant;
 
 /**
  * mqprefix常量

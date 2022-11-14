@@ -1,10 +1,11 @@
 package edu.swu.cs.handler.ExceptionHandler;
 
+import edu.swu.cs.Exception.SystemException;
+import edu.swu.cs.domain.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import swu.lj.Exception.SystemException;
-import swu.lj.domain.ResponseResult;
+
 
 @RestControllerAdvice
 @Slf4j

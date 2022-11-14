@@ -43,10 +43,8 @@ import java.util.*;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
-    public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("pwwkecw"));
-    }
-    public static int lengthOfLongestSubstring(String s) {
+
+    public int lengthOfLongestSubstring(String s) {
         Map<Character, Character> myhash=new HashMap<>();
         List<Integer> myList=new ArrayList<Integer>();
 //        myList.add(3);
@@ -55,12 +53,15 @@ class Solution {
 //        System.out.println(myList.stream().max(Integer::compareTo));
         int j=0;
         boolean end=true;
+        if (s.length()==0){
+            return 0;
+        }
         while (end){
             for (int i = j; i < s.length(); i++) {
                 char tempChar=s.charAt(i);
                 if (myhash.containsValue(tempChar)){
                     myList.add(Integer.valueOf(i-j));
-                    j=i;
+                    j=j+1;
                     myhash.clear();
                     break;
                 }

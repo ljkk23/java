@@ -1,4 +1,4 @@
-package swu.lj.utils;
+package edu.swu.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

@@ -1,6 +1,7 @@
 package edu.swu.cs.Exception;
 
-import swu.lj.enums.AppHttpCodeEnum;
+
+import edu.swu.cs.enums.AppHttpCodeEnum;
 
 public class SystemException extends RuntimeException{
 
