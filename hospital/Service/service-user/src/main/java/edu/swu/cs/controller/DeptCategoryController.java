@@ -2,9 +2,11 @@ package edu.swu.cs.controller;
 
 
 import edu.swu.cs.domain.ResponseResult;
+import edu.swu.cs.entity.DeptCategory;
 import edu.swu.cs.service.IDeptCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +32,19 @@ public class DeptCategoryController {
      */
     @GetMapping("getCategory")
     public ResponseResult getCategory(){
-        return deptCategoryService.getCategory();
+
+        return ResponseResult.okResult(deptCategoryService.getCategory());
     }
+
+    @GetMapping("deleteCategory")
+    public ResponseResult deleteCategory(Long id){
+        return deptCategoryService.deleteCategory(id);
+    }
+
+    @PostMapping ("addDept")
+    public ResponseResult addDept(DeptCategory deptCategory){
+        return deptCategoryService.addDept(deptCategory);
+    }
+
 }
 

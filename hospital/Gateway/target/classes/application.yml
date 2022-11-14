@@ -1,0 +1,18 @@
+server:
+  port: 8004
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: product_route
+          uri: lb://service-user
+          predicates:
+              - Path=/api/service-user/**
+          filters:
+              - RewritePath=/api/(?<segment>.*),/$\{segment}
+

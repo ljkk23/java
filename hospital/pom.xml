@@ -6,6 +6,7 @@
     <modules>
         <module>Service</module>
         <module>common</module>
+        <module>Gateway</module>
     </modules>
 
 

@@ -11,6 +11,7 @@
         <module name="service-order" />
         <module name="service-user" />
         <module name="service-product" />
+        <module name="Gateway" />
       </profile>
     </annotationProcessing>
   </component>

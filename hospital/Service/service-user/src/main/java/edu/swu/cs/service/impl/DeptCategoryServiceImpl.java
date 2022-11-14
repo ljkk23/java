@@ -1,14 +1,19 @@
 package edu.swu.cs.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import edu.swu.cs.Exception.SystemException;
 import edu.swu.cs.domain.ResponseResult;
 import edu.swu.cs.entity.DeptCategory;
 import edu.swu.cs.entity.VO.DeptCategoryVO;
+import edu.swu.cs.enums.AppHttpCodeEnum;
 import edu.swu.cs.mapper.DeptCategoryMapper;
 import edu.swu.cs.service.IDeptCategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import edu.swu.cs.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -32,18 +37,19 @@ public class DeptCategoryServiceImpl extends ServiceImpl<DeptCategoryMapper, Dep
     @Autowired
     public RedisTemplate redisTemplate;
 
+    @Cacheable(value = {"category"}, key = "#root.method.name")
     @Override
-    public ResponseResult getCategory() {
-        // 1.从缓存中读取分类信息
-        Object categoryJson = redisTemplate.opsForValue().get("categoryJson");
-        if (StringUtils.isEmpty(categoryJson)) {
+    public List<DeptCategoryVO> getCategory() {
+//        // 1.从缓存中读取分类信息
+//        Object categoryJson = redisTemplate.opsForValue().get("categoryJson");
+//        if (StringUtils.isEmpty(categoryJson)) {
             // 2. 缓存中没有，查询数据库
             List<DeptCategoryVO> catalogJsonFromDB = getCatalogJsonFromDB();
             // 3. 查询到的数据存放到缓存中，将对象转成 JSON 存储
-            redisTemplate.opsForValue().set("categoryJson", JSON.toJSONString(catalogJsonFromDB));
-            return ResponseResult.okResult(catalogJsonFromDB);
-        }
-        return ResponseResult.okResult(categoryJson);
+           // redisTemplate.opsForValue().set("categoryJson", JSON.toJSONString(catalogJsonFromDB));
+            return catalogJsonFromDB;
+//        }
+//        return ResponseResult.okResult(categoryJson);
     }
 
     @Override
@@ -75,6 +81,24 @@ public class DeptCategoryServiceImpl extends ServiceImpl<DeptCategoryMapper, Dep
     @Override
     public List<DeptCategory> getParentCid(List<DeptCategory> selectList, Long parentCid) {
         return selectList.stream().filter(item -> item.getParentId().equals(parentCid)).collect(Collectors.toList());
+    }
+    @CacheEvict(value = "category", key = "'getCategory'")
+    @Override
+    public ResponseResult deleteCategory(Long id) {
+        this.removeById(id);
+
+        return ResponseResult.okResult();
+    }
+    //新增dept就需要更改category
+    @CacheEvict(value = "category")
+    @Override
+    public ResponseResult addDept(DeptCategory deptCategory) {
+        try {
+            this.save(deptCategory);
+        }catch (Exception e){
+            throw new SystemException(AppHttpCodeEnum.DATABASE_ERROR);
+        }
+        return ResponseResult.okResult();
     }
 
 

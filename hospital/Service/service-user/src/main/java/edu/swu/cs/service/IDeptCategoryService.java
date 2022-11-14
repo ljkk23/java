@@ -19,8 +19,12 @@ import java.util.Map;
  */
 public interface IDeptCategoryService extends IService<DeptCategory> {
 
-    ResponseResult getCategory();
+    List<DeptCategoryVO> getCategory();
     List<DeptCategoryVO> getCatalogJsonFromDB();
 
     List<DeptCategory> getParentCid(List<DeptCategory> selectList, Long parentCid);
+
+    ResponseResult deleteCategory(Long id);
+
+    ResponseResult addDept(DeptCategory deptCategory);
 }
