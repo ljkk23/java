@@ -29,4 +29,10 @@ spring:
             - Path=/api/service-product/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
+        - id: service-auth_route
+          uri: lb://security-auth
+          predicates:
+            - Path=/api/security-auth/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
 

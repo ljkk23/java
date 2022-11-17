@@ -24,7 +24,7 @@ public class FastAutoGeneratorTest {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + "/Service/service-user"+"/src/main/java/" + mapperpath + "/mapper/xml")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_dept_category")// 设置需要生成的表名
+                    builder.addInclude("sys_doctor_role")// 设置需要生成的表名
                             .addTablePrefix("sys_") // 设置过滤表前缀
                             .controllerBuilder().enableRestStyle().enableHyphenStyle()
                             .entityBuilder().enableLombok().addTableFills(

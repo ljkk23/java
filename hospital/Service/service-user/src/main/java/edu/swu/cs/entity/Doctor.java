@@ -45,8 +45,7 @@ public class Doctor implements Serializable {
 
     @ApiModelProperty("密码")
     private String password;
-
-    @ApiModelProperty("用户类型：0代表医生，1代表排班员,2代表root")
+    @ApiModelProperty("1代表root,2代表普通医生，3代表排版员")
     private String type;
 
     @ApiModelProperty("账号状态（0正常 1停用）")
@@ -87,12 +86,12 @@ public class Doctor implements Serializable {
         this.title = title;
         this.userName = userName;
         this.password = password;
-        this.type = type;
         this.status = status;
         this.email = email;
         this.phonenumber = phonenumber;
         this.sex = sex;
         this.avatar = avatar;
         this.amount = amount;
+        this.type=type;
     }
 }

@@ -20,7 +20,7 @@ import javax.servlet.Filter;
 import java.io.PrintWriter;
 
 @Configuration
-public class    SecurityConfig extends WebSecurityConfigurerAdapter {
+public class  SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
     @Autowired

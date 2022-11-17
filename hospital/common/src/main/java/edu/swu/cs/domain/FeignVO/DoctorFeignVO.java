@@ -29,6 +29,9 @@ public class DoctorFeignVO implements Serializable {
     @ApiModelProperty("用户名")
     private String userName;
 
+    @ApiModelProperty("密码")
+    private String password;
+
     @ApiModelProperty("邮箱")
     private String email;
 

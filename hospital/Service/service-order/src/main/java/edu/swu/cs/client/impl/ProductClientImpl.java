@@ -6,6 +6,7 @@ import edu.swu.cs.domain.FeignVO.ProductVO;
 public class ProductClientImpl implements ProductClient {
     @Override
     public ProductVO FeignGetProductInfo(Long id) {
+
         return null;
     }
 }
