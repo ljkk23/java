@@ -16,22 +16,23 @@ public class FastAutoGeneratorTest {
                     builder.author("liujian") // 设置作者
                             .enableSwagger() // 开启 swagger 模式
                             .fileOverride() // 覆盖已生成文件
-                            .outputDir(System.getProperty("user.dir") + "/Service/service-user"+"/src/main/java"); // 指定输出目录
+                            .outputDir(System.getProperty("user.dir") + "/Service/service-ware"+"/src/main/java"); // 指定输出目录
                 })
                 .packageConfig(builder -> {
                     builder.parent(parentPackage) // 设置父包名
                             //.moduleName("system") // 设置父包模块名
-                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + "/Service/service-user"+"/src/main/java/" + mapperpath + "/mapper/xml")); // 设置mapperXml生成路径
+                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + "/Service/service-ware"+"/src/main/java/" + mapperpath + "/mapper/xml")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("sys_doctor_role")// 设置需要生成的表名
-                            .addTablePrefix("sys_") // 设置过滤表前缀
+                    builder.addInclude("ware")// 设置需要生成的表名
+                           // .addTablePrefix("sys_") // 设置过滤表前缀
                             .controllerBuilder().enableRestStyle().enableHyphenStyle()
-                            .entityBuilder().enableLombok().addTableFills(
-                                    new Column("create_time", FieldFill.INSERT)
-                            ).addTableFills(
-                                    new Column("update_time", FieldFill.INSERT_UPDATE)
-                            );
+                            .entityBuilder().enableLombok();
+//                            .addTableFills(
+//                                    new Column("create_time", FieldFill.INSERT)
+//                            ).addTableFills(
+//                                    new Column("update_time", FieldFill.INSERT_UPDATE)
+//                            );
 
                 })
                 //.templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板

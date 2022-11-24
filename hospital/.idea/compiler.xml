@@ -7,12 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="security-auth" />
+        <module name="service-ware" />
         <module name="common" />
-        <module name="service-order" />
         <module name="service-user" />
         <module name="service-product" />
         <module name="Gateway" />
+        <module name="security-auth" />
+        <module name="service-order" />
       </profile>
     </annotationProcessing>
   </component>

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Component
 @FeignClient(name = "service-product",fallback = ProductClientImpl.class)
 public interface ProductClient {
-    @GetMapping("/product/FeignGetProductInfo")
+    @GetMapping("/service-product/product/FeignGetProductInfo")
     public ProductVO FeignGetProductInfo(@RequestParam(value = "id") Long id);
 
 }

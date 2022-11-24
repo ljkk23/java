@@ -1,19 +1,26 @@
 package edu.swu.cs.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import edu.swu.cs.Constants.SystemConstants;
 import edu.swu.cs.client.ProductClient;
 import edu.swu.cs.client.UserClient;
+import edu.swu.cs.client.WareClient;
 import edu.swu.cs.domain.FeignVO.DoctorFeignVO;
 import edu.swu.cs.domain.FeignVO.PatientVo;
 import edu.swu.cs.domain.FeignVO.ProductVO;
 import edu.swu.cs.domain.ResponseResult;
 import edu.swu.cs.entity.OrderInfo;
 import edu.swu.cs.entity.VO.OrderVO;
+import edu.swu.cs.enums.AppHttpCodeEnum;
 import edu.swu.cs.mapper.OrderInfoMapper;
 import edu.swu.cs.service.IOrderInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
 import java.util.concurrent.*;
 
 /**
@@ -37,6 +44,11 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     private static final int QUEUE_CAPACITY = 100;
     private static final Long KEEP_ALIVE_TIME = 60L;
 
+    @Autowired
+    private WareClient wareClient;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public ResponseResult getOrderByID(Long orderId) {
@@ -125,5 +137,24 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
 
         return ResponseResult.okResult(orderVO);
+    }
+    @Transactional
+    @Override
+    public ResponseResult addOrder(Long userID, Long patientID, Long productID) {
+        String orderID = UUID.randomUUID().toString();
+        OrderInfo orderInfo=new OrderInfo(productID,userID,patientID,userID,orderID);
+        if (!this.save(orderInfo)){
+            return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR,"插入数据库出错");
+        }
+        rabbitTemplate.convertAndSend(SystemConstants.ORDER_EXCHANGE,"order.locked",orderInfo);
+         //锁库存
+        Boolean lockResult = wareClient.lockWare(productID);
+        if (!lockResult){
+            throw new RuntimeException("库存不够");
+        }
+        //模仿库存锁定之后，本地事务的回滚
+//        int a=10/0;
+
+        return ResponseResult.okResult();
     }
 }

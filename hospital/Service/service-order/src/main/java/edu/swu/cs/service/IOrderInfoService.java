@@ -14,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IOrderInfoService extends IService<OrderInfo> {
     ResponseResult getOrderByID(Long OrderID);
+
+    ResponseResult addOrder(Long userID, Long patientID, Long productID);
 }

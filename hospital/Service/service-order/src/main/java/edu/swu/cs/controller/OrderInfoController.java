@@ -26,12 +26,9 @@ public class OrderInfoController {
 
 
     @GetMapping("/createOrder")
-    public ResponseResult addArticle(Long userID,Long patientID,Long productID){
-        OrderInfo orderInfo=new OrderInfo(productID,userID,patientID,userID);
-        if (!orderInfoService.save(orderInfo)){
-            return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR,"插入数据库出错");
-        }
-        return ResponseResult.okResult();
+    public ResponseResult createOrder(Long userID,Long patientID,Long productID){
+        return orderInfoService.addOrder(userID,patientID,productID);
+
     }
     @GetMapping("/getOrderByID")
     public ResponseResult getOrderByID(Long orderId){

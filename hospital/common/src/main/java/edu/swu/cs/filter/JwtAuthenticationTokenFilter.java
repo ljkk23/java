@@ -36,6 +36,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 || Objects.equals(httpServletRequest.getRequestURI(), "/service-user/patient/FeignGetPatientInfo")
                 ||  Objects.equals(httpServletRequest.getRequestURI(), "/service-user/user/getUserByFeign")
                 ||  Objects.equals(httpServletRequest.getRequestURI(), "/service-product/product/FeignGetProductInfo")
+                || Objects.equals(httpServletRequest.getRequestURI(),"/service-ware/ware/lockWare")
         ){
             filterChain.doFilter(httpServletRequest,httpServletResponse);
             return;

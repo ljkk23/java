@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface UserClient {
 
     //远程调用医生的信息
-    @GetMapping("/doctor/FeignGetDoctorInfo")
+    @GetMapping("/service-user/doctor/FeignGetDoctorInfo")
     public DoctorFeignVO FeignGetDoctorInfo(@RequestParam(value = "id") Long id);
 
-    @GetMapping("/patient/FeignGetPatientInfo")
+    @GetMapping("/service-user/patient/FeignGetPatientInfo")
     public PatientVo FeignGetPatientInfo(@RequestParam(value = "id") Long id);
 
 }

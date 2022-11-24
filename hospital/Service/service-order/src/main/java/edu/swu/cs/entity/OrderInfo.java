@@ -7,9 +7,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -22,6 +26,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("order_info")
 @ApiModel(value = "OrderInfo对象", description = "订单表")
 public class OrderInfo implements Serializable {
@@ -32,11 +38,12 @@ public class OrderInfo implements Serializable {
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    public OrderInfo(Long productId, Long userId, Long patientId, Long updateBy) {
+    public OrderInfo(Long productId, Long userId, Long patientId, Long updateBy, String orderId) {
         this.productId = productId;
         this.userId = userId;
         this.patientId = patientId;
         this.updateBy = updateBy;
+        this.orderId = orderId;
     }
 
     @ApiModelProperty("订单交易号")
@@ -48,7 +55,7 @@ public class OrderInfo implements Serializable {
     @ApiModelProperty("就诊人id")
     private Long patientId;
 
-    @ApiModelProperty("订单状态，0代表已下单未支付，1代表已支付未服务，2代表已服务，3代表已退号")
+    @ApiModelProperty("订单状态，0代表已下单未支付，1代表已支付未服务，2代表已服务，3代表已取消")
     private Integer orderStatus;
 
     @ApiModelProperty("创建时间")
@@ -64,5 +71,7 @@ public class OrderInfo implements Serializable {
 
     @ApiModelProperty("删除标志（0代表未删除，1代表已删除）")
     private Integer delFlag;
+    @ApiModelProperty("订单的唯一id")
+    private String orderId;
 
 }
