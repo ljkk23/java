@@ -15,11 +15,14 @@ import edu.swu.cs.enums.AppHttpCodeEnum;
 import edu.swu.cs.mapper.OrderInfoMapper;
 import edu.swu.cs.service.IOrderInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.*;
 
@@ -49,6 +52,8 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public ResponseResult getOrderByID(Long orderId) {
@@ -140,13 +145,22 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     }
     @Transactional
     @Override
-    public ResponseResult addOrder(Long userID, Long patientID, Long productID) {
+    public ResponseResult addOrder(Long userID, Long patientID, Long productID,String type) {
+        //60秒内提交的订单视为幂等
+        String redisKey= "AddOrder:"+userID+":"+ patientID + ":"+productID;
+        Object orderRedis = redisTemplate.opsForValue().get(redisKey);
+        if (Objects.isNull(orderRedis)){
+            redisTemplate.opsForValue().set(redisKey,redisKey,60,TimeUnit.SECONDS);
+        }else {
+            return ResponseResult.errorResult(AppHttpCodeEnum.IDEMPOTENT_ERROR);
+        }
+        //业务逻辑
         String orderID = UUID.randomUUID().toString();
-        OrderInfo orderInfo=new OrderInfo(productID,userID,patientID,userID,orderID);
+        OrderInfo orderInfo=new OrderInfo(productID,userID,patientID,userID,orderID,type);
         if (!this.save(orderInfo)){
             return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR,"插入数据库出错");
         }
-        rabbitTemplate.convertAndSend(SystemConstants.ORDER_EXCHANGE,"order.locked",orderInfo);
+        rabbitTemplate.convertAndSend(SystemConstants.ORDER_EXCHANGE,"order.locked",orderInfo,new CorrelationData(UUID.randomUUID().toString()));
          //锁库存
         Boolean lockResult = wareClient.lockWare(productID);
         if (!lockResult){

@@ -16,6 +16,7 @@
         <module>service-user</module>
         <module>service-product</module>
         <module>service-ware</module>
+        <module>service-hotOrder</module>
     </modules>
 
     <properties>

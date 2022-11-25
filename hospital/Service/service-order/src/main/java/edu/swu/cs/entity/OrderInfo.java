@@ -38,12 +38,13 @@ public class OrderInfo implements Serializable {
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    public OrderInfo(Long productId, Long userId, Long patientId, Long updateBy, String orderId) {
+    public OrderInfo(Long productId, Long userId, Long patientId, Long updateBy, String orderId,String type) {
         this.productId = productId;
         this.userId = userId;
         this.patientId = patientId;
         this.updateBy = updateBy;
         this.orderId = orderId;
+        this.type=type;
     }
 
     @ApiModelProperty("订单交易号")
@@ -73,5 +74,7 @@ public class OrderInfo implements Serializable {
     private Integer delFlag;
     @ApiModelProperty("订单的唯一id")
     private String orderId;
+    @ApiModelProperty("类型")
+    private String type;
 
 }

@@ -1,14 +1,23 @@
 package edu.swu.cs.controller;
 
 
+import edu.swu.cs.Constants.SystemConstants;
 import edu.swu.cs.client.UserClient;
 import edu.swu.cs.domain.FeignVO.DoctorFeignVO;
 import edu.swu.cs.domain.ResponseResult;
 import edu.swu.cs.entity.OrderInfo;
 import edu.swu.cs.enums.AppHttpCodeEnum;
 import edu.swu.cs.service.IOrderInfoService;
+import org.redisson.Redisson;
+import org.redisson.api.RSemaphore;
+import org.redisson.api.RedissonClient;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.UUID;
 
 /**
  * <p>
@@ -26,13 +35,35 @@ public class OrderInfoController {
 
 
     @GetMapping("/createOrder")
-    public ResponseResult createOrder(Long userID,Long patientID,Long productID){
-        return orderInfoService.addOrder(userID,patientID,productID);
+    public ResponseResult createOrder(Long userID,Long patientID,Long productID,String type){
+        return orderInfoService.addOrder(userID,patientID,productID,type);
 
     }
     @GetMapping("/getOrderByID")
     public ResponseResult getOrderByID(Long orderId){
         return orderInfoService.getOrderByID(orderId);
+    }
+
+
+    @Resource
+    private RedissonClient redissonClient;
+
+
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    @GetMapping("/test")
+    public ResponseResult test(){
+        // 使用库存作为分布式信号量
+        RSemaphore semaphore = redissonClient.getSemaphore("xinhaoliang");
+        // 商品可以秒杀的数量作为信号量
+        semaphore.trySetPermits(10);
+        boolean b = semaphore.tryAcquire();
+        if (b){
+            rabbitTemplate.convertAndSend(SystemConstants.ORDER_EXCHANGE,"order.release.ddd","ddd",new CorrelationData(UUID.randomUUID().toString()));
+            return ResponseResult.okResult();
+        }
+        return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR);
     }
 }
 

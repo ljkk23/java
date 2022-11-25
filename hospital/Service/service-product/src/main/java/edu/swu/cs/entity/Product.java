@@ -36,6 +36,10 @@ public class Product implements Serializable {
     @ApiModelProperty("安排时间")
     private String date;
 
+
+    @ApiModelProperty("类型")
+    private String type;
+
     @ApiModelProperty("创建时间")
       @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
