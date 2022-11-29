@@ -67,7 +67,7 @@ public class WareListener {
                 wareService.updateById(ware);
             } else if (Objects.equals(orderVO.getType(), "1")) {
                 //如果是高并发
-                RSemaphore semaphore = redissonClient.getSemaphore("Order_ware");
+                RSemaphore semaphore = redissonClient.getSemaphore("Order_ware:"+orderVO.getProductId());
                 semaphore.release();
             }
 

@@ -29,6 +29,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         System.out.println(httpServletRequest.getRequestURI());
+        long startTime=System.currentTimeMillis();
         //白名单：login和fegin接口
         if (Objects.equals(httpServletRequest.getRequestURI(), "/security-auth/login") ||
                 Objects.equals(httpServletRequest.getRequestURI(), "/service-user/doctor/getDoctorByFeign")
@@ -37,6 +38,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 ||  Objects.equals(httpServletRequest.getRequestURI(), "/service-user/user/getUserByFeign")
                 ||  Objects.equals(httpServletRequest.getRequestURI(), "/service-product/product/FeignGetProductInfo")
                 || Objects.equals(httpServletRequest.getRequestURI(),"/service-ware/ware/lockWare")
+                || Objects.equals(httpServletRequest.getRequestURI(),"/service-ware/ware/getWareByProductId")
+                || Objects.equals(httpServletRequest.getRequestURI(),"/service-ware/ware/updateHotOrderWare")
         ){
             filterChain.doFilter(httpServletRequest,httpServletResponse);
             return;
@@ -69,6 +72,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         //将获取的UserDetailsImpl通过UsernamePasswordAuthenticationToken包装存入SecurityContext中
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        long endTime=System.currentTimeMillis(); //获取结束时间
+
+        System.out.println("filter程序运行时间： "+(endTime-startTime)+"ms");
         filterChain.doFilter(httpServletRequest,httpServletResponse);
 
     }

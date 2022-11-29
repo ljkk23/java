@@ -39,9 +39,10 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
     @Autowired
     private RedissonClient redissonClient;
 
-    @Transactional
+    //@Transactional 这里和普通订单不同，这里不需要加本地事务，加了本地事务反而减少了不少吞吐量，增加了300ms的执行时间
     @Override
     public ResponseResult addHotOrder(Long userID, Long patientID, Long productID,String type) {
+        long startTime=System.currentTimeMillis();
         //60秒内提交的订单视为幂等
         String redisKey= "AddHotOrder:"+userID+":"+ patientID + ":"+productID;
         //因为这里是高并发的请求，所以这里幂等的判断时间是500ms
@@ -52,7 +53,7 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
 
         //业务逻辑
         // 使用库存作为分布式信号量
-        RSemaphore semaphore = redissonClient.getSemaphore("Order_ware");
+        RSemaphore semaphore = redissonClient.getSemaphore("Order_ware:"+productID);
         // 商品可以秒杀的数量作为信号量
         boolean b = semaphore.tryAcquire();
         if (b){
@@ -66,6 +67,10 @@ public class OrderInfoServiceImpl implements IOrderInfoService {
         }else {
             return ResponseResult.errorResult(AppHttpCodeEnum.WARE_ERROR);
         }
+
+        long endTime=System.currentTimeMillis(); //获取结束时间
+
+        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
 
 
         return ResponseResult.okResult();

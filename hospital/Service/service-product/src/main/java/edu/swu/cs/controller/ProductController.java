@@ -1,18 +1,24 @@
 package edu.swu.cs.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import edu.swu.cs.domain.FeignVO.ProductVO;
 import edu.swu.cs.domain.ResponseResult;
 import edu.swu.cs.entity.Product;
 import edu.swu.cs.enums.AppHttpCodeEnum;
 import edu.swu.cs.service.IProductService;
 import edu.swu.cs.utils.BeanCopyUtils;
+import org.redisson.api.RLock;
+import org.redisson.api.RSemaphore;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -41,5 +47,17 @@ public class ProductController {
         Product doctor = productService.getById(id);
         return BeanCopyUtils.copyBean(doctor, ProductVO.class);
     }
+    @GetMapping("/getProductList")
+    public ResponseResult getProductList(){
+        LambdaQueryWrapper<Product> lambdaQueryWrapper=new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Product::getStatus,"1");
+        List<Product> list = productService.list(lambdaQueryWrapper);
+        return ResponseResult.okResult(list);
+    }
+
+
+
+
+
 }
 

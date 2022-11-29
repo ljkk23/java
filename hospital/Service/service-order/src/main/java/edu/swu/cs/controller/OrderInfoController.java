@@ -45,25 +45,5 @@ public class OrderInfoController {
     }
 
 
-    @Resource
-    private RedissonClient redissonClient;
-
-
-
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-    @GetMapping("/test")
-    public ResponseResult test(){
-        // 使用库存作为分布式信号量
-        RSemaphore semaphore = redissonClient.getSemaphore("xinhaoliang");
-        // 商品可以秒杀的数量作为信号量
-        semaphore.trySetPermits(10);
-        boolean b = semaphore.tryAcquire();
-        if (b){
-            rabbitTemplate.convertAndSend(SystemConstants.ORDER_EXCHANGE,"order.release.ddd","ddd",new CorrelationData(UUID.randomUUID().toString()));
-            return ResponseResult.okResult();
-        }
-        return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR);
-    }
 }
 

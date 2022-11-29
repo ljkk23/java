@@ -1,6 +1,8 @@
 package edu.swu.cs.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import edu.swu.cs.domain.FeignVO.ProductVO;
 import edu.swu.cs.domain.ResponseResult;
 import edu.swu.cs.entity.Ware;
 import edu.swu.cs.service.IWareService;
@@ -36,6 +38,24 @@ public class WareController {
     @GetMapping("lockWare")
     public Boolean lockWare(Long productID){
          return wareService.lockWare(productID);
+    }
+
+
+    @GetMapping("getWareByProductId")
+    public Integer getWareByProductId(Long productID){
+        LambdaQueryWrapper<Ware> wareLambdaQueryWrapper=new LambdaQueryWrapper<>();
+        wareLambdaQueryWrapper.eq(Ware::getProductId,productID);
+        return wareService.getOne(wareLambdaQueryWrapper).getAmount();
+    }
+
+
+    @GetMapping("updateHotOrderWare")
+    public Boolean updateHotOrderWare(Long productID,Integer Count){
+        LambdaQueryWrapper<Ware> wareLambdaQueryWrapper=new LambdaQueryWrapper<>();
+        wareLambdaQueryWrapper.eq(Ware::getProductId,productID);
+        Ware one = wareService.getOne(wareLambdaQueryWrapper);
+        one.setLockAmount(one.getAmount()-Count);
+        return wareService.update(one,wareLambdaQueryWrapper);
     }
 
 

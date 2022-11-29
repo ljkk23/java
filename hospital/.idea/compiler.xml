@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="service-ware" />
         <module name="common" />
+        <module name="test" />
         <module name="service-user" />
         <module name="service-product" />
         <module name="Gateway" />
